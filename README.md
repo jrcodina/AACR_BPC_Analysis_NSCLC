@@ -192,18 +192,6 @@ The script also prints two denominator summaries to the console:
 2.  Create a `plots/` folder (or let the script create it).
 3.  Run the analysis script from the project root.
 
-Example:
-
-``` r
-# from R
-source("analysis.R")
-```
-
-Or from the terminal:
-
-``` bash
-Rscript analysis.R
-```
 
 ## Software requirements
 
@@ -228,5 +216,8 @@ required access steps and data use notes.
 ## Author
 
 **Josep-Ramon Codina** *PhD candidate in Biochemistry & Molecular
-Biology* \* [LinkedIn Profile](https://www.linkedin.com/in/jrcodina/) \*
+Biology*
+
+[LinkedIn Profile](https://www.linkedin.com/in/jrcodina/)
+
 [jr.codina96\@gmail.com](mailto:jr.codina96@gmail.com)
