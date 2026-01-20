@@ -339,6 +339,60 @@ png(file.path(out_dir, "KM_TTNT_KRAS_Comut_PDL1Low.png"), width = 15, height = 8
 print(p_ttnt_low)
 dev.off()
 
+# 11) PD-L1 high (>50%) within KRAS + save combined plot + risk table
+dat_os_kras_pdl1high <- dat_g %>%
+  filter(
+    KRAS == 1L,
+    !is.na(kras_comut),
+    !is.na(pdl1_perc), pdl1_perc >= 50,
+    !is.na(tt_os_g_yrs), !is.na(os_g_status)
+  )
+
+#dat_os_kras_pdl1high$kras_comut <- ifelse(is.na(dat_os_kras_pdl1high$kras_comut), "WT", dat_os_kras_pdl1high$kras_comut)
+
+dat_ttnt_kras_pdl1high <- dat_g %>%
+  filter(
+    KRAS == 1L,
+    !is.na(kras_comut),
+    !is.na(pdl1_perc), pdl1_perc >= 50,
+    !is.na(ttnt_ca_seq_yrs), !is.na(ttnt_ca_seq_status)
+  )
+
+fit_os_high <- survfit(Surv(tt_os_g_yrs, os_g_status) ~ kras_comut, data = dat_os_kras_pdl1high)
+
+p_os_high <- ggsurvplot(
+  fit_os_high,
+  data = dat_os_kras_pdl1high,
+  risk.table = TRUE,
+  pval = TRUE,
+  xlab = "Years since first IO regimen start",
+  ylab = "Overall survival probability",
+  legend.title = "KRAS subgroup",
+  title = "PD-L1 high (>50%): OS by KRAS co-mutation status"
+)
+
+png(file.path(out_dir, "KM_OS_KRAS_Comut_PDL1High.png"), width = 15, height = 8, units = "in", res = 300)
+print(p_os_high)
+dev.off()
+
+fit_ttnt_high <- survfit(Surv(ttnt_ca_seq_yrs, ttnt_ca_seq_status) ~ kras_comut, data = dat_ttnt_kras_pdl1high)
+
+p_ttnt_high <- ggsurvplot(
+  fit_ttnt_high,
+  data = dat_ttnt_kras_pdl1high,
+  risk.table = TRUE,
+  pval = TRUE,
+  xlab = "Years since first IO regimen start",
+  ylab = "Probability of no next treatment or death (TTNT)",
+  legend.title = "KRAS subgroup",
+  title = "PD-L1 high (>50%): TTNT by KRAS co-mutation status"
+)
+
+png(file.path(out_dir, "KM_TTNT_KRAS_Comut_PDL1high.png"), width = 15, height = 8, units = "in", res = 300)
+print(p_ttnt_high)
+dev.off()
+
+
 cox_os_low_adj <- coxph(Surv(tt_os_g_yrs, os_g_status) ~ kras_comut + smoking_ever + stageIV, data = dat_os_kras_pdl1low)
 cox_ttnt_low_adj <- coxph(Surv(ttnt_ca_seq_yrs, ttnt_ca_seq_status) ~ kras_comut + smoking_ever + stageIV, data = dat_ttnt_kras_pdl1low)
 
@@ -349,7 +403,7 @@ summary(cox_os_adj)
 summary(cox_os_low_adj)
 summary(cox_ttnt_low_adj)
 
-# 11) Denominator summaries
+# 12) Denominator summaries
 ids_all <- clin %>% distinct(record_id)
 
 ids_maf <- maf_df %>%
