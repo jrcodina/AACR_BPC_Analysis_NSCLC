@@ -1,9 +1,3 @@
----
-editor_options: 
-  markdown: 
-    wrap: 72
----
-
 # NSCLC Real-World Immunotherapy Outcomes (RWE)
 
 ![R](https://img.shields.io/badge/Language-R-blue)
