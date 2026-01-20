@@ -18,7 +18,7 @@ The primary goals are to quantify associations between outcomes and (a) PD-L1 tu
 The datasets are derived from the AACR Project GENIE Biopharma Collaborative (BPC) NSCLC release. The pipeline expects the following input files (not included here). Place them under `./data/`:
 
 | File | Used for | Key columns referenced |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | `data_clinical_sample.txt` | Map sample IDs to patient IDs | `PATIENT_ID`, `SAMPLE_ID` |
 | `data_mutations_extended.txt` | Somatic mutations (MAF-like) | `Tumor_Sample_Barcode`, `Hugo_Symbol` |
 | `cancer_level_dataset_index.csv` | Clinical cohort filter and covariates | `record_id`, `cohort`, `stage_dx_iv`, `ca_lung_cigarette` |
@@ -118,14 +118,14 @@ When restricting to PD-L1 KRAS-mutant patients, OS and TTNT appear similar betwe
 ![OS KRAS co-mutation PD-L1 High](./plots/KM_OS_KRAS_Comut_PDL1High.png)
 
 **Figure 5D. PD-L1 High: TTNT within KRAS by co-mutation status**\
-![TTNT KRAS co-mutation PD-L1 High](./plots/KM_TTNT_KRAS_Comut_PDL1high.png)
+![TTNT KRAS co-mutation PD-L1 High](./plots/KM_TTNT_KRAS_Comut_PDL1High.png)
 
 ## Output artifacts
 
 Plots are written to `./plots/` by default. The current script produces the following files (filenames are fixed in the code):
 
 | Output | Description |
-|----|----|
+|------------------------------------|------------------------------------|
 | `KM_OS_by_PDL1.png` | Kaplan-Meier OS by PD-L1 group with risk table and log-rank p-value |
 | `KM_TTNT_by_PDL1.png` | Kaplan-Meier TTNT by PD-L1 group with risk table and log-rank p-value |
 | `Forest_OS_Cox_Adjusted.png` | Forest plot for adjusted OS Cox model |
